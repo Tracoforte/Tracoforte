@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRACO FORTE | Materiais, Ferragens & Betoneiras</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        industrial: {
+                            900: '#18181b',
+                            800: '#27272a',
+                            700: '#3f3f46',
+                            concrete: '#a1a1aa',
+                            accent: '#f59e0b',
+                            safety: '#ea580c'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Oswald', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        .caution-stripes {
+            background: repeating-linear-gradient(
+                45deg,
+                #f59e0b,
+                #f59e0b 15px,
+                #18181b 15px,
+                #18181b 30px
+            );
+        }
+        .steel-gradient {
+            background: linear-gradient(135deg, #18181b 0%, #27272a 50%, #3f3f46 100%);
+        }
+    </style>
+</head>
+<body class="bg-zinc-100 font-sans text-zinc-900 antialiased min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-50 shadow-md">
+        <!-- Caution stripes banner -->
+        <div class="caution-stripes h-2 w-full"></div>
+        <div class="bg-industrial-900 text-white px-4 py-3 flex flex-wrap justify-between items-center border-b border-industrial-800">
+            <div class="flex items-center space-x-3">
+                <div onclick="switchView('store')" class="cursor-pointer group flex items-center space-x-2 bg-industrial-800 hover:bg-industrial-700 px-3 py-1.5 rounded-lg border border-industrial-700 transition-all">
+                    <div class="bg-industrial-accent text-industrial-900 p-2 rounded-md font-heading font-black flex items-center justify-center w-10 h-10 shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-cubes-stacked text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-extrabold text-xl tracking-wider text-white leading-none">
+                            TRACO<span class="text-industrial-accent">FORTE</span>
+                        </span>
+                        <span class="text-[9px] uppercase tracking-widest text-industrial-concrete font-bold">Materiais & Betoneiras</span>
+                    </div>
+                </div>
+                <span class="text-xs text-industrial-concrete hidden lg:inline-block font-medium border-l border-industrial-700 pl-3">Materiais Pesados, Ferragens CA-50 & Betoneiras</span>
+            </div>
+            
+            <!-- View Switcher & Cart Trigger -->
+            <div class="flex items-center space-x-3 mt-2 sm:mt-0">
+                <button onclick="switchView('store')" id="btn-view-store" class="bg-industrial-accent text-industrial-900 px-3 py-1.5 rounded-md font-bold text-xs uppercase flex items-center space-x-1 shadow transition-all">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Loja</span>
+                </button>
+                <button onclick="switchView('salesperson')" id="btn-view-sales" class="bg-industrial-800 hover:bg-industrial-700 text-industrial-concrete px-3 py-1.5 rounded-md font-bold text-xs uppercase flex items-center space-x-1 border border-industrial-700 transition-all">
+                    <i class="fa-solid fa-chart-line text-industrial-accent"></i>
+                    <span>Painel de Vendas</span>
+                </button>
+                <button onclick="toggleCartModal()" class="relative bg-industrial-800 hover:bg-industrial-700 text-white p-2 rounded-md border border-industrial-700">
+                    <i class="fa-solid fa-cart-shopping text-base"></i>
+                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-industrial-safety text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-industrial-900">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN STORE VIEW -->
+    <main id="view-store" class="flex-grow">
+        <!-- Hero Section -->
+        <section class="steel-gradient text-white py-12 px-6 lg:px-16 relative overflow-hidden shadow-inner">
+            <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
+                <i class="fa-solid fa-truck-field text-[300px]"></i>
+            </div>
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
+                <div>
+                    <span class="bg-industrial-accent/20 text-industrial-accent text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-industrial-accent/40">
+                        TRACO FORTE • SOLUÇÕES PARA SUA OBRA
+                    </span>
+                    <h1 class="text-4xl sm:text-6xl font-heading font-extrabold mt-4 tracking-tight leading-tight">
+                        A ESTRUTURA MAIS RESISTENTE DA <span class="text-industrial-accent">SUA OBRA</span>
+                    </h1>
+                    <p class="mt-4 text-industrial-concrete text-sm sm:text-base leading-relaxed">
+                        A <strong>Traco Forte</strong> fornece ferragens estruturais de alta resistência, concretos usinados no traço certo e betoneiras profissionais com entrega agilizada para sua obra.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="#catalog" class="bg-industrial-accent hover:bg-amber-400 text-industrial-900 font-bold px-6 py-3 rounded-lg shadow-lg transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                            <span>Ver Catálogo Geral</span>
+                        </a>
+                        <a href="#betoneiras" class="bg-industrial-800 hover:bg-industrial-700 text-white border border-industrial-600 font-semibold px-6 py-3 rounded-lg transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-gear fa-spin"></i>
+                            <span>Betoneiras</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Interactive Quick Concrete Estimator -->
+                <div class="bg-industrial-900/90 border border-industrial-700 p-6 rounded-xl shadow-2xl backdrop-blur-sm">
+                    <div class="flex items-center justify-between border-b border-industrial-800 pb-3 mb-4">
+                        <h3 class="font-heading font-bold text-lg text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-calculator text-industrial-accent"></i>
+                            <span>Calculadora de Concreto Rápidas</span>
+                        </h3>
+                        <span class="text-[10px] bg-industrial-800 text-industrial-accent px-2 py-0.5 rounded font-bold">m³ Exato</span>
+                    </div>
+                    <div class="space-y-4 text-xs">
+                        <div>
+                            <label class="block text-industrial-concrete mb-1">Largura (m):</label>
+                            <input type="number" id="calc-width" value="5" step="0.1" oninput="calculateConcrete()" class="w-full bg-industrial-800 border border-industrial-700 rounded px-3 py-2 text-white focus:outline-none focus:border-industrial-accent">
+                        </div>
+                        <div>
+                            <label class="block text-industrial-concrete mb-1">Comprimento (m):</label>
+                            <input type="number" id="calc-length" value="10" step="0.1" oninput="calculateConcrete()" class="w-full bg-industrial-800 border border-industrial-700 rounded px-3 py-2 text-white focus:outline-none focus:border-industrial-accent">
+                        </div>
+                        <div>
+                            <label class="block text-industrial-concrete mb-1">Espessura/Altura (cm):</label>
+                            <input type="number" id="calc-depth" value="10" step="1" oninput="calculateConcrete()" class="w-full bg-industrial-800 border border-industrial-700 rounded px-3 py-2 text-white focus:outline-none focus:border-industrial-accent">
+                        </div>
+                        <div class="bg-industrial-800/80 p-3 rounded border border-industrial-700 flex justify-between items-center">
+                            <span class="text-industrial-concrete font-medium">Volume Estimado:</span>
+                            <span id="calc-result" class="text-xl font-heading font-bold text-industrial-accent">5.00 m³</span>
+                        </div>
+                        <button onclick="addConcreteToCart()" class="w-full bg-industrial-safety hover:bg-orange-600 text-white font-bold py-2 rounded transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>Adicionar Concreto Estimado ao Carrinho</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Catalog Section -->
+        <section id="catalog" class="max-w-7xl mx-auto px-4 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-zinc-200 pb-4">
+                <div>
+                    <h2 class="text-3xl font-heading font-extrabold text-industrial-900 uppercase tracking-tight">Catálogo de Produtos</h2>
+                    <p class="text-xs text-zinc-500">Selecione os materiais de construção para sua estrutura</p>
+                </div>
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterProducts('all')" class="cat-btn active bg-industrial-900 text-white px-3 py-1.5 rounded-md text-xs font-bold">Todos</button>
+                    <button onclick="filterProducts('ferragens')" class="cat-btn bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-100 px-3 py-1.5 rounded-md text-xs font-bold">Ferragens & Aço</button>
+                    <button onclick="filterProducts('concreto')" class="cat-btn bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-100 px-3 py-1.5 rounded-md text-xs font-bold">Concreto & Cimento</button>
+                    <button onclick="filterProducts('betoneiras')" id="betoneiras" class="cat-btn bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-100 px-3 py-1.5 rounded-md text-xs font-bold">Betoneiras</button>
+                    <button onclick="filterProducts('ferramentas')" class="cat-btn bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-100 px-3 py-1.5 rounded-md text-xs font-bold">Ferramentas & EPIs</button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Products injected by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- SALESPERSON DASHBOARD VIEW -->
+    <main id="view-salesperson" class="flex-grow hidden bg-zinc-900 text-white p-4 sm:p-8">
+        <div class="max-w-7xl mx-auto space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-industrial-800 p-6 rounded-xl border border-industrial-700 shadow-xl gap-4">
+                <div>
+                    <span class="text-xs text-industrial-accent font-bold uppercase tracking-wider">Acesso Restrito ao Vendedor</span>
+                    <h2 class="text-2xl font-heading font-extrabold text-white">Painel de Vendas Traco Forte</h2>
+                    <p class="text-xs text-industrial-concrete">Calcule orçamentos personalizados e gerencie registros de compras em tempo real.</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-industrial-900 p-3 rounded-lg border border-industrial-700 text-right">
+                        <div class="text-[10px] text-industrial-concrete uppercase">Total Vendido</div>
+                        <div id="sales-total-amount" class="text-xl font-heading font-extrabold text-industrial-accent">R$ 0,00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Budget Generator Form -->
+                <div class="bg-industrial-800 p-6 rounded-xl border border-industrial-700 space-y-4">
+                    <h3 class="text-lg font-heading font-bold text-white flex items-center space-x-2 border-b border-industrial-700 pb-3">
+                        <i class="fa-solid fa-file-invoice-dollar text-industrial-accent"></i>
+                        <span>Gerador de Orçamento Rápido</span>
+                    </h3>
+                    <form id="sales-quote-form" onsubmit="generateQuote(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block text-industrial-concrete mb-1">Nome do Cliente / Obra:</label>
+                            <input type="text" id="quote-client" required placeholder="Ex: Construtora Silva" class="w-full bg-industrial-900 border border-industrial-700 rounded px-3 py-2 text-white focus:outline-none focus:border-industrial-accent">
+                        </div>
+                        <div>
+                            <label class="block text-industrial-concrete mb-1">Produto:</label>
+                            <select id="quote-product" class="w-full bg-industrial-900 border border-industrial-700 rounded px-3 py-2 text-white focus:outline-none focus:border-industrial-accent">
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-industrial-concrete mb-1">Quantidade:</label>
+                            <input type="number" id="quote-qty" min="1" value="1" required class="w-full bg-industrial-900 border border-industrial-700 rounded px-3 py-2 text-white focus:outline-none focus:border-industrial-accent">
+                        </div>
+                        <div>
+                            <label class="block text-industrial-concrete mb-1">Desconto do Vendedor (%):</label>
+                            <input type="number" id="quote-discount" min="0" max="30" value="0" class="w-full bg-industrial-900 border border-industrial-700 rounded px-3 py-2 text-white focus:outline-none focus:border-industrial-accent">
+                        </div>
+                        <button type="submit" class="w-full bg-industrial-accent hover:bg-amber-400 text-industrial-900 font-bold py-2.5 rounded transition-all">
+                            Registrar Venda / Orçamento
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Sales History List -->
+                <div class="lg:col-span-2 bg-industrial-800 p-6 rounded-xl border border-industrial-700">
+                    <h3 class="text-lg font-heading font-bold text-white flex items-center space-x-2 border-b border-industrial-700 pb-3 mb-4">
+                        <i class="fa-solid fa-list-check text-industrial-accent"></i>
+                        <span>Registro de Vendas Realizadas</span>
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-industrial-concrete">
+                            <thead class="bg-industrial-900 uppercase font-bold text-white">
+                                <tr>
+                                    <th class="p-3">Cliente</th>
+                                    <th class="p-3">Item</th>
+                                    <th class="p-3">Qtd</th>
+                                    <th class="p-3">Valor Total</th>
+                                    <th class="p-3">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sales-history-tbody" class="divide-y divide-industrial-700">
+                                <tr>
+                                    <td colspan="5" class="p-4 text-center text-zinc-500">Nenhuma venda registrada até o momento.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SHOPPING CART MODAL -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 z-50 hidden backdrop-blur-sm flex justify-end">
+        <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl">
+            <div class="bg-industrial-900 text-white p-4 flex justify-between items-center border-b border-industrial-800">
+                <h3 class="font-heading font-bold text-lg flex items-center space-x-2">
+                    <i class="fa-solid fa-cart-shopping text-industrial-accent"></i>
+                    <span>Carrinho de Compras</span>
+                </h3>
+                <button onclick="toggleCartModal()" class="text-zinc-400 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-grow p-4 overflow-y-auto space-y-3">
+                <p class="text-xs text-zinc-500 text-center py-8">Seu carrinho está vazio.</p>
+            </div>
+            <div class="p-4 border-t border-zinc-200 bg-zinc-50 space-y-3">
+                <div class="flex justify-between font-bold text-base">
+                    <span>Total da Obra:</span>
+                    <span id="cart-total-price" class="text-industrial-safety">R$ 0,00</span>
+                </div>
+                <button onclick="checkoutCart()" class="w-full bg-industrial-safety hover:bg-orange-600 text-white font-bold py-3 rounded-lg shadow-lg transition-all flex justify-center items-center space-x-2">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Finalizar Pedido de Compra</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-industrial-900 text-industrial-concrete py-12 px-4 sm:px-6 lg:px-8 border-t border-industrial-800 mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <div class="flex items-center space-x-2 text-white font-heading text-2xl font-bold mb-4">
+                    <div class="bg-industrial-accent text-industrial-900 p-1.5 rounded flex items-center justify-center">
+                        <i class="fa-solid fa-cubes-stacked text-lg"></i>
+                    </div>
+                    <span>TRACO<span class="text-industrial-accent">FORTE</span></span>
+                </div>
+                <p class="text-xs leading-relaxed text-industrial-concrete">
+                    Sua parceira definitiva em materiais de construção pesados, ferragens estruturais e betoneiras de alta performance. Atendimento especializado para construtoras e engenheiros.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-heading font-bold text-sm uppercase tracking-wider mb-3">Categorias Principais</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#catalog" onclick="filterProducts('ferragens')" class="hover:text-industrial-accent transition-all">Ferragens & Aço CA-50</a></li>
+                    <li><a href="#catalog" onclick="filterProducts('concreto')" class="hover:text-industrial-accent transition-all">Concretos Usinados & Argamassas</a></li>
+                    <li><a href="#betoneiras" onclick="filterProducts('betoneiras')" class="hover:text-industrial-accent transition-all">Betoneiras Profissionais</a></li>
+                    <li><a href="#catalog" onclick="filterProducts('ferramentas')" class="hover:text-industrial-accent transition-all">Ferramentas & EPIs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-heading font-bold text-sm uppercase tracking-wider mb-3">Área do Vendedor</h4>
+                <p class="text-xs text-industrial-concrete mb-3">Acesse o painel integrado para calcular orçamentos e gerenciar pedidos de clientes em tempo real.</p>
+                <button onclick="switchView('salesperson')" class="bg-industrial-800 hover:bg-industrial-700 text-industrial-accent text-xs font-bold px-4 py-2 rounded border border-industrial-700 transition-all">
+                    Abrir Painel de Vendas <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+            <div>
+                <h4 class="text-white font-heading font-bold text-sm uppercase tracking-wider mb-3">Central de Atendimento</h4>
+                <p class="text-xs text-industrial-concrete mb-1"><i class="fa-solid fa-phone text-industrial-accent mr-2"></i> (11) 3456-7890</p>
+                <p class="text-xs text-industrial-concrete mb-1"><i class="fa-solid fa-envelope text-industrial-accent mr-2"></i> contato@tracoforte.com.br</p>
+                <p class="text-xs text-industrial-concrete"><i class="fa-solid fa-location-dot text-industrial-accent mr-2"></i> Rodovia dos Construtores, KM 14 - SP</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-6 border-t border-industrial-800 text-center text-xs text-industrial-concrete">
+            &copy; 2026 TRACO FORTE Materiais de Construção S.A. Todos os direitos reservados. Pronto para publicação no GitHub Pages.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // Products Database
+        const products = [
+            { id: 1, name: "Betoneira 400L Horizont - Motor 2HP", category: "betoneiras", price: 3850.00, badge: "Mais Vendido", icon: "fa-gear" },
+            { id: 2, name: "Vergalhão Aço CA-50 10mm (3/8) Barra 12m", category: "ferragens", price: 48.90, badge: "Estrutural", icon: "fa-bars-staggered" },
+            { id: 3, name: "Concreto Usinado FCK 25 Mpa (Por m³)", category: "concreto", price: 340.00, badge: "Alta Resistencia", icon: "fa-cubes" },
+            { id: 4, name: "Betoneira Compacta 150L Monofásica", category: "betoneiras", price: 1890.00, badge: "Obra Leve", icon: "fa-gear" },
+            { id: 5, name: "Saco Cimento CP II-Z 32 50kg Votoran", category: "concreto", price: 33.50, badge: "Essencial", icon: "fa-box-archive" },
+            { id: 6, name: "Malha de Aço Soldada Pop EQ092 (2x3m)", category: "ferragens", price: 125.00, badge: "Piso e Lajes", icon: "fa-border-all" },
+            { id: 7, name: "Martelete Perfurador/Rompedor SDS-Plus 800W", category: "ferramentas", price: 580.00, badge: "Profissional", icon: "fa-screwdriver-wrench" },
+            { id: 8, name: "Capacete de Segurança com Jugular Proteção Obra", category: "ferramentas", price: 29.90, badge: "EPI", icon: "fa-hardhat" }
+        ];
+
+        let cart = [];
+        let salesLog = [];
+
+        // Application Initialization
+        window.onload = function() {
+            renderProducts(products);
+            populateSalesProductsSelect();
+            calculateConcrete();
+        };
+
+        // Navigation Switcher
+        function switchView(viewName) {
+            const storeView = document.getElementById('view-store');
+            const salesView = document.getElementById('view-salesperson');
+            const btnStore = document.getElementById('btn-view-store');
+            const btnSales = document.getElementById('btn-view-sales');
+
+            if (viewName === 'store') {
+                storeView.classList.remove('hidden');
+                salesView.classList.add('hidden');
+                btnStore.className = "bg-industrial-accent text-industrial-900 px-3 py-1.5 rounded-md font-bold text-xs uppercase flex items-center space-x-1 shadow transition-all";
+                btnSales.className = "bg-industrial-800 hover:bg-industrial-700 text-industrial-concrete px-3 py-1.5 rounded-md font-bold text-xs uppercase flex items-center space-x-1 border border-industrial-700 transition-all";
+            } else {
+                storeView.classList.add('hidden');
+                salesView.classList.remove('hidden');
+                btnSales.className = "bg-industrial-accent text-industrial-900 px-3 py-1.5 rounded-md font-bold text-xs uppercase flex items-center space-x-1 shadow transition-all";
+                btnStore.className = "bg-industrial-800 hover:bg-industrial-700 text-industrial-concrete px-3 py-1.5 rounded-md font-bold text-xs uppercase flex items-center space-x-1 border border-industrial-700 transition-all";
+            }
+        }
+
+        // Render Products
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = items.map(p => `
+                <div class="bg-white rounded-xl shadow-md border border-zinc-200 overflow-hidden hover:shadow-xl transition-all flex flex-col">
+                    <div class="bg-zinc-100 p-6 flex items-center justify-center relative text-industrial-800">
+                        <span class="absolute top-2 right-2 bg-industrial-900 text-industrial-accent text-[10px] font-bold uppercase px-2 py-0.5 rounded">
+                            ${p.badge}
+                        </span>
+                        <i class="fa-solid ${p.icon} text-6xl my-4 text-industrial-800"></i>
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">${p.category}</span>
+                            <h3 class="font-bold text-zinc-800 text-sm leading-snug">${p.name}</h3>
+                        </div>
+                        <div class="flex items-end justify-between pt-2 border-t border-zinc-100">
+                            <div>
+                                <span class="text-[10px] text-zinc-400 block">Preço Un.</span>
+                                <span class="text-lg font-heading font-extrabold text-industrial-safety">R$ ${p.price.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="bg-industrial-900 hover:bg-industrial-800 text-white p-2.5 rounded-lg shadow transition-all">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Products
+        function filterProducts(category) {
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.className = "cat-btn bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-100 px-3 py-1.5 rounded-md text-xs font-bold";
+            });
+            event.currentTarget.className = "cat-btn active bg-industrial-900 text-white px-3 py-1.5 rounded-md text-xs font-bold";
+
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                renderProducts(products.filter(p => p.category === category));
+            }
+        }
+
+        // Concrete Volume Estimator Calculation
+        function calculateConcrete() {
+            const w = parseFloat(document.getElementById('calc-width').value) || 0;
+            const l = parseFloat(document.getElementById('calc-length').value) || 0;
+            const d = (parseFloat(document.getElementById('calc-depth').value) || 0) / 100;
+            const volume = w * l * d;
+            document.getElementById('calc-result').innerText = `${volume.toFixed(2)} m³`;
+        }
+
+        function addConcreteToCart() {
+            const volume = parseFloat(document.getElementById('calc-result').innerText);
+            if (volume <= 0) return;
+
+            const existingIndex = cart.findIndex(item => item.id === 3);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += volume;
+            } else {
+                cart.push({
+                    id: 3,
+                    name: "Concreto Usinado FCK 25 Mpa (Volume Calculado)",
+                    price: 340.00,
+                    qty: volume
+                });
+            }
+            updateCartUI();
+            toggleCartModal();
+        }
+
+        // Cart Drawer Operations
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cart-count');
+            const itemsElem = document.getElementById('cart-items');
+            const totalElem = document.getElementById('cart-total-price');
+
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+            countElem.innerText = Math.round(totalQty);
+            totalElem.innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+
+            if (cart.length === 0) {
+                itemsElem.innerHTML = `<p class="text-xs text-zinc-500 text-center py-8">Seu carrinho está vazio.</p>`;
+                return;
+            }
+
+            itemsElem.innerHTML = cart.map((item, index) => `
+                <div class="flex items-center justify-between bg-zinc-50 p-3 rounded-lg border border-zinc-200">
+                    <div class="flex-grow pr-2">
+                        <h4 class="font-bold text-xs text-zinc-800">${item.name}</h4>
+                        <span class="text-xs text-industrial-safety font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-semibold bg-white px-2 py-1 border border-zinc-300 rounded">${item.qty.toFixed(item.id === 3 ? 1 : 0)}</span>
+                        <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-sm p-1">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) return;
+            alert("Pedido de compra gerado com sucesso para a TRACO FORTE! Obrigado.");
+            cart = [];
+            updateCartUI();
+            toggleCartModal();
+        }
+
+        // Salesperson Dashboard Logic
+        function populateSalesProductsSelect() {
+            const select = document.getElementById('quote-product');
+            select.innerHTML = products.map(p => `
+                <option value="${p.id}">${p.name} - R$ ${p.price.toFixed(2)}</option>
+            `).join('');
+        }
+
+        function generateQuote(event) {
+            event.preventDefault();
+            const client = document.getElementById('quote-client').value;
+            const productId = parseInt(document.getElementById('quote-product').value);
+            const qty = parseFloat(document.getElementById('quote-qty').value);
+            const discount = parseFloat(document.getElementById('quote-discount').value) || 0;
+
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const baseTotal = product.price * qty;
+            const finalTotal = baseTotal * (1 - (discount / 100));
+
+            const sale = {
+                client,
+                productName: product.name,
+                qty,
+                total: finalTotal
+            };
+
+            salesLog.push(sale);
+            updateSalesLogUI();
+            document.getElementById('sales-quote-form').reset();
+        }
+
+        function updateSalesLogUI() {
+            const tbody = document.getElementById('sales-history-tbody');
+            const totalAmountElem = document.getElementById('sales-total-amount');
+
+            const totalSales = salesLog.reduce((acc, s) => acc + s.total, 0);
+            totalAmountElem.innerText = `R$ ${totalSales.toFixed(2).replace('.', ',')}`;
+
+            if (salesLog.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-zinc-500">Nenhuma venda registrada até o momento.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = salesLog.map((s, idx) => `
+                <tr class="hover:bg-industrial-700/50">
+                    <td class="p-3 font-semibold text-white">${s.client}</td>
+                    <td class="p-3">${s.productName}</td>
+                    <td class="p-3 font-bold text-industrial-accent">${s.qty}</td>
+                    <td class="p-3 font-bold text-green-400">R$ ${s.total.toFixed(2).replace('.', ',')}</td>
+                    <td class="p-3">
+                        <button onclick="removeSale(${idx})" class="text-red-400 hover:text-red-300">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function removeSale(index) {
+            salesLog.splice(index, 1);
+            updateSalesLogUI();
+        }
+    </script>
+</body>
+</html>
